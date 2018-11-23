@@ -109,7 +109,7 @@ public class Controlador {
 		 }
 		 	System.out.println(j);
 		 
-			 menu_view.setPlayer_name(new JLabel("hola"));
+			 menu_view.setPlayer_name(new JLabel("pepe"));
 			 //menu_view.setInfluence(new JLabel(""+j.getInfluencie()));
 			 
 		 
