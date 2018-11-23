@@ -1,0 +1,10 @@
+/.classpath
+/.project
+/.settings/
+/Controlador/
+/Modelo/
+/Vista/
+/lol.html
+/lol.sql
+/sqlite-jdbc-3.23.1.jar
+/test.db
