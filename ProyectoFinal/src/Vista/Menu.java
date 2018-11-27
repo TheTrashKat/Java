@@ -200,7 +200,7 @@ public class Menu extends JFrame {
 					  //image_view= new JLabel(new ImageIcon(i));
 					image_view.setIcon(imagen);
 					 contentPane.add(image_view);
-					  
+					 // repaint();
 				} catch (Exception e) {
 					// TODO: handle exception
 				}

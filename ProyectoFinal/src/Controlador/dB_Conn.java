@@ -296,11 +296,11 @@ public class dB_Conn {
 	 
 	    	dB_Conn app = new dB_Conn();
 	    	Jugador j= new Jugador();
-	        j= app.get_player("juan","olaola1");
+	        j= app.get_player("pepe","hola");
 	        j=app.get_retos_aceptados(j);
 	        j=app.get_tareas_per_reto(j);
 	        j=app.get_retos_calificados(j);
-	        System.out.println(j.getLi_re_calificados());
+	        System.out.println(j);
 	    	
 	    } 
 
