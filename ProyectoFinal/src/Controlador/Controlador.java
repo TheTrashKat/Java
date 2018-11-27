@@ -24,6 +24,7 @@ public class Controlador {
 	private Menu menu_view;
 	private Mision mision_view;
 	private Tarea tarea;
+	private My_Misions test2_view;
 	
 	
 	//controladores
@@ -59,7 +60,7 @@ public class Controlador {
 			 j=db.get_retos_aceptados(j); //funcion para consultar la tabal de retos aceptados usando el id del jugador
 			 j=db.get_tareas_per_reto(j); //funcion para rellenar las tareas de los retos
 			 j=db.get_retos_calificados(j);
-			 
+			 j=db.selectAll_player_friends(j);
 			 menu_view = new Menu(this,this.j);  //Los SetVisibles es la forma en como cambio de vistas
 			 login_view.setVisible(false);
 			 menu_view.setVisible(true);
@@ -92,11 +93,48 @@ public class Controlador {
 			 JOptionPane.showMessageDialog(null, "Error El usuario ya Existe");
 		 }
 		 
-		 
-		 
-		
-		
 	 }
+		 
+	 public void Menu_action_B_GoMision(){
+		
+		 	if(!j.getLi_re_en_curso().isEmpty()){
+		 	test2_view = new My_Misions(this, j) ;
+		 	test2_view.setVisible(true);
+		 	}else{
+		 		JOptionPane.showMessageDialog(null, "No hay Retos que Terminar");
+		 	}
+			 
+		 }	 
+	 
+	 public void Menu_action_B_Friends(){
+			
+		 	friend_views = new Friends(this, j);
+		 	friend_views.setVisible(true);
+			 
+		 }	 
+		 
+		 
+		
+	 public void My_Misions_action_B_Terminar(/*Reto a*/ int index){
+		 	
+		 
+		 	if(j.getLi_re_en_curso().isEmpty()){
+		 		test2_view.dispose();
+		 	}else
+		 	{
+		 	this.j.getLi_re_en_curso().get(index).setEstado(2);
+		 	db.reto_update(this.j.getLi_re_en_curso().get(index));
+		 	this.j.getLi_re_en_curso().remove(index);
+		 	test2_view.dispose();	
+		 	test2_view = new My_Misions(this,j);
+		 	test2_view.setVisible(true);
+		 	}
+		 	
+		 	
+		 	//test2_view.removeAll();
+			 
+		 }	 
+	 
 	 
 	 public void Menu_action_B_Like_Dislike(int n){
 		 
@@ -125,4 +163,5 @@ public class Controlador {
 	 }
 	 
 	
+
 }

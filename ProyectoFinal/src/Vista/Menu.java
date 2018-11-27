@@ -145,6 +145,7 @@ public class Menu extends JFrame {
 		JButton btnMisRetos = new JButton("Mis Retos");
 		btnMisRetos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			c.Menu_action_B_GoMision();
 			}
 		});
 		btnMisRetos.setBounds(109, 227, 89, 23);
@@ -153,12 +154,13 @@ public class Menu extends JFrame {
 		Amigos= new JButton("Amigos");
 		Amigos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			c.Menu_action_B_Friends();
 			}
 		});
 		Amigos.setBounds(204, 227, 89, 23);
 		contentPane.add(Amigos);
 		
-		 Info = new JLabel("New label");
+		 Info = new JLabel("No tiene Retos que Calificar");
 		Info.setBounds(120, 152, 201, 54);
 		contentPane.add(Info);
 		

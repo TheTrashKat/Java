@@ -12,14 +12,25 @@ public class Jugador {
 	
 	private ArrayList<Reto> Li_re_calificados;
 	private ArrayList<Reto> Li_re_espera;
-	private ArrayList<Reto> Li_re_en_curso;
+	private ArrayList<Reto> Li_re_en_curso =null;
 	private ArrayList<Reto> Li_re_fin;
+	private ArrayList<Amigos> Fiends;
 	
 	
 	
 	
 	
 	
+	public ArrayList<Amigos> getFiends() {
+		return Fiends;
+	}
+
+
+	public void setFiends(ArrayList<Amigos> fiends) {
+		Fiends = fiends;
+	}
+
+
 	public ArrayList<Reto> getLi_re_calificados() {
 		return Li_re_calificados;
 	}
@@ -64,7 +75,7 @@ public class Jugador {
 		return "Jugador [Id=" + Id + ", Name=" + Name + ", Contraseña=" + Contraseña + ", Fecha_Nacimiento="
 				+ Fecha_Nacimiento + ", Influencie=" + Influencie + ", Li_re_calificados=" + Li_re_calificados
 				+ ", Li_re_espera=" + Li_re_espera + ", Li_re_en_curso=" + Li_re_en_curso + ", Li_re_fin=" + Li_re_fin
-				+ "]";
+				+ ", Fiends=" + Fiends + "]";
 	}
 
 
@@ -82,6 +93,7 @@ public class Jugador {
 	
 	public Jugador() {
 		super();
+	
 	}
 
 

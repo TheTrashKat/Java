@@ -7,6 +7,7 @@ import Modelo.*;
 
 public class dB_Conn {
 
+		
 	
 	
 	 private Connection connect() {
@@ -34,7 +35,7 @@ public class dB_Conn {
 	 
 	        try (Connection conn = this.connect();
 	        		 
-	                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	            PreparedStatement pstmt = conn.prepareStatement(sql)) {
 	            pstmt.setString(1, name);
 	            pstmt.setDouble(2, capacity);
 	            pstmt.executeUpdate();
@@ -42,6 +43,51 @@ public class dB_Conn {
 	            System.out.println(e.getMessage());
 	        }
 	    }
+	 
+	
+	 
+	 public Jugador add_friend( Jugador j, String name) {
+	        String sql1 = "INSERT INTO Amigos(Id_player_1,Id_player_2) VALUES(?,?)";
+	 
+	        String sql = "select j.nombre , a.Id_player_2  from Jugador j inner join Amigos a   on  j.id==a.Id_player_2 and a.Id_player_1=24;";
+	         Amigos Friends = new Amigos();
+	        int i=0;
+	        
+	        
+	        try (Connection conn = this.connect();
+	             Statement stmt  = conn.createStatement();
+	             ResultSet rs    = stmt.executeQuery(sql)){
+	            
+	            // loop through the result set
+	            while (rs.next()) {
+	                Friends.setPlayer1(rs.getInt(1));
+	                Friends.setPlayer2(rs.getInt(2));
+	                Friends.setPlayer_2_name(" ");
+	            	i++;
+	            }     
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+	        
+	        
+	        if(i>1){
+	        	try (Connection conn = this.connect();
+		        		 
+		            PreparedStatement pstmt = conn.prepareStatement(sql1)) {
+		            pstmt.setInt(1, Friends.getPlayer1());
+		            pstmt.setInt(2,Friends.getPlayer2());
+		            pstmt.executeUpdate();
+		        } catch (SQLException e) {
+		            System.out.println(e.getMessage());
+		        }
+	        	
+	        }
+	        
+	        
+	        
+	        j.getFiends().add(Friends);
+	        return j;
+	 }
 	 
 	 
 	 public void selectAll(){
@@ -62,6 +108,36 @@ public class dB_Conn {
 	        }
 	    }
 	 
+	 public Jugador selectAll_player_friends(Jugador j){
+	        String sql = "select j.nombre , a.Id_player_2  from Jugador j inner join Amigos a   on  j.id==a.Id_player_2 and a.Id_player_1=?";
+	        List<Amigos> Friends = new ArrayList<Amigos>();
+	        
+	        try (Connection conn = this.connect();
+	                PreparedStatement pstmt  = conn.prepareStatement(sql)){
+	               
+	               // set the value
+	               pstmt.setInt(1,j.getId());
+	              
+	               //
+	               ResultSet rs  = pstmt.executeQuery();
+	               
+	               // loop through the result set
+	            
+	            while (rs.next()) {
+	                Friends.add(new Amigos(j.getId(),rs.getInt(2),rs.getString(1)));
+	            }
+	            
+	            
+	            
+	            
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+	        
+	        j.setFiends((ArrayList<Amigos>) Friends);
+			return j;
+	 }
+	 
 	 
 	 
 	 public void update(int id, String name, double capacity) {
@@ -76,6 +152,32 @@ public class dB_Conn {
 	            pstmt.setString(1, name);
 	            pstmt.setDouble(2, capacity);
 	            pstmt.setInt(3, id);
+	            // update 
+	            pstmt.executeUpdate();
+	        } catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+	    }
+	 
+	 public void reto_update(Reto reto) {
+	        String sql = "UPDATE Retos SET "
+	                + "Estado = ? ,"
+	                + "Tipo = ? ,"
+	                + "IMG = ? ,"
+	                + "description = ? ,"
+	                + "nombre = ? "
+	                + "WHERE Id = ?";
+	 
+	        try (Connection conn = this.connect();
+	                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	 
+	            // set the corresponding param
+	            pstmt.setInt(1, reto.getEstado());
+	            pstmt.setInt(2, reto.getTipo());
+	            pstmt.setString(3, reto.getImg());
+	            pstmt.setString(4, reto.getDescription());
+	            pstmt.setString(5, reto.getNombre());
+	            pstmt.setInt(6, reto.getId());
 	            // update 
 	            pstmt.executeUpdate();
 	        } catch (SQLException e) {
@@ -300,6 +402,7 @@ public class dB_Conn {
 	        j=app.get_retos_aceptados(j);
 	        j=app.get_tareas_per_reto(j);
 	        j=app.get_retos_calificados(j);
+	        j=app.selectAll_player_friends(j);
 	        System.out.println(j);
 	    	
 	    } 
